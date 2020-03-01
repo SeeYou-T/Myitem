@@ -1,0 +1,37 @@
+{
+  "id": "1664483",
+  "name": "item",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3177989",
+      "name": "支付宝",
+      "font_class": "pay-Paytreasure",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "4344408",
+      "name": "微博",
+      "font_class": "weibo",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "4675496",
+      "name": "QQ",
+      "font_class": "QQ",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "5347796",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    }
+  ]
+}
