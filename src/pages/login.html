@@ -34,8 +34,8 @@
         <div class="login_toggle1 login_div active">
             
             <div class="login_input">
-            <input type="text" placeholder="邮箱/手机号码/小米ID">
-            <input type="text" placeholder="密码">
+            <input type="text" placeholder="邮箱/手机号码/小米ID" class="username">
+            <input type="text" placeholder="密码" class="userpassword">
             </div>
             <input type="button" class="login_button" value="登录">
             <a href="" >手机短信登录/注册</a>
@@ -92,6 +92,12 @@
         $('.login_a').click(function(){
             $(this).addClass('active').parent().siblings().children().removeClass('active')
             $('.login_div').toggleClass('active')
+        })
+        console.log($('.username').value())
+        $.ajax({
+            url:'../php/login.php',
+            // data:{username:$('.username').value(),userpass:$('.userpassword').value()}
+
         })
     </script>
 </body>
