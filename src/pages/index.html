@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../js/index.js">
     <link rel="icon" href="https://www.mi.com/favicon.ico">
     <link rel="stylesheet" href="../lib/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1664483_metzq7dwwti.css">
 
 </head>
 <body>
@@ -108,7 +109,7 @@
 
 
     <div class="wrap_data">
-        <div class="data_shop">
+        <div class="data_shop clear">
             <div class="data_head">小米闪购</div>
             
             <div class="data_data">
@@ -154,24 +155,101 @@
 
             <div class="data_goods">
                 <ul>
-                    <li>
-                        <img src="//cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1564390489.8669887.jpg?thumb=1&w=200&h=200" alt="">
-                        <h3>米兔儿童电话手表3C 4G 粉色</h3>
-                        <p>能视频通话的AI学习手表</p>
-                        <span>349</span><del>498</del>
-                    </li>
+                  
                 </ul>
+            </div>
+        </div>
+    
+
+    <div class="advertis">
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/58095bfc5cf8d2ab6c3ea2d33805254e.jpg?thumb=1&w=1226&h=120&f=webp&q=90" alt="">
+    </div>
+
+    <div class="mstore clear">
+        <h2> 小米商城  </h2>
+        <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/574c6643ab91c6618bfb2d0e2c761d0b.jpg?thumb=1&w=234&h=614&f=webp&q=90" alt="">
+        <div class="goods_right clear">
+            <ul>
+              
+            </ul>
+        </div>
+        <div class="allgoods">
+            <i>点我查看详情页→</i>
+            <a href="./details.html">
+                <p>查看全部 <em><span class="glyphicon glyphicon-chevron-right"></span></em></p>
+            </a>
+        </div>
+    </div>
+    </div>
+
+    <div class="site_footer">
+        <ul class="header_list">
+            <li style="border-left: 0"><span class="iconfont icon-weixiu"></span>预约维修服务</li>
+            <li><span class="iconfont icon-sevenday"></span>7天无理由退货</li>
+            <li><span class="iconfont icon-tianwuliyoutuihuo"></span>15天免费换货</li>
+            <li><span class="iconfont icon-gift"></span>满99包邮</li>
+            <li><span class="iconfont icon-didian"></span>520余家售后网点</li>
+        </ul>
+        <div class="footer_list">
+            <div class="footer_left">
+                <dl>
+                    <dt>帮助中心</dt>
+                    <dd>账户管理</dd>
+                    <dd>购物指南</dd>
+                    <dd>订单操作</dd>
+                </dl>
+                <dl>
+                    <dt>服务支持</dt>
+                    <dd>售后政策</dd>
+                    <dd>自助服务</dd>
+                    <dd>相关下载</dd>
+                </dl>
+                <dl>
+                    <dt>线下门店</dt>
+                    <dd>小米之家</dd>
+                    <dd>服务网点</dd>
+                    <dd>授权体验店</dd>
+                </dl>
+                <dl>
+                    <dt>关于小米</dt>
+                    <dd>了解小米</dd>
+                    <dd>加入小米</dd>
+                    <dd>投资者关系</dd>
+                    <dd>廉洁举报</dd>
+                </dl>
+                <dl>
+                    <dt>关注我们</dt>
+                    <dd>新浪微博</dd>
+                    <dd>官方微信</dd>
+                    <dd>联系我们</dd>
+                </dl>
+                <dl>
+                    <dt>特色服务 </dt>
+                    <dd> F 码通道</dd>
+                    <dd>礼物码</dd>
+                    <dd>防伪查询</dd>
+                </dl>
+            </div>
+            <div class="footer_right">
+                <h5>400-100-5678</h5>
+                <p>周一至周日 8:00-18:00
+                    </p>
+                    <p>（仅收市话费）</p>
+                    <div class="footer_button">
+                        人工服务
+                    </div>
             </div>
         </div>
     </div>
 
+    <div class="wrap_footer">
 
 
+    <div class="mfooter">
+        <img src="../images/footer.png" alt="">
 
-
-
-
-
+    </div>
+    </div>
 
 
 
@@ -180,7 +258,11 @@
     <script src="../lib/jquery/dist/jquery.min.js"></script>
     <!-- nav下拉菜单数据 -->
     <script>
-    $(function(){
+
+    navdata()
+   function navdata(){
+
+  
         $.ajax({
             url:'../lib/nav_top.json',
             dataType:'json',
@@ -226,7 +308,7 @@
                 )   
             }
         })
-    })
+    }
 
 
 
@@ -334,18 +416,79 @@
 
     <!-- 倒计时轮播图 -->
     <script>
-        $(function(){
+     dateswiper()
+     function dateswiper(){
             $.ajax({
                 url:'../lib/date_swiper.json',
                 dataType:'json',
                 success:function(res){
                     console.log(res)
+                    let str = ''
+                    res.forEach(element => {
+                        str += `
+                        <li>
+                        <img src="${element.pc_img} " alt="">
+                        <h3>${element.goods_name}</h3>
+                        <p>${element.desc}</p>
+                        <span>${element.seckill_Price}元</span><del>${element.goods_price}元</del>
+                        </li>
+                        `
+                    })
+                    $('.data_goods ul').html(str)
                 }
             })
+            let num = 0
+            let timer = setInterval(() => {
+            $('.data_goods ul').css({
+                transform: `translate3d(-${num}px, 0px, 0px)`
+            })
+            num = num + 978
+            if(num > 2934){
+                num =0
+            }
+        }, 2000);   
+        $('.data_goods').children().hover(function(){
+            clearInterval(timer)
+            console.log('定时器清楚了')
+        },function(){
+            timer = setInterval(() => {
+            $('.data_goods ul').css({
+                transform: `translate3d(-${num}px, 0px, 0px)`
+            })
+            num = num + 978
+            if(num > 2934){
+                num =0
+            }
+        }, 2000); 
+        console.log('定时器开启')
         })
+     }
     </script>
 
-
+    <!-- 小米商城 -->
+    <script>
+        store()
+        function store(){
+            $.ajax({
+                url:'../lib/store_data.json',
+                dataType:'json',
+                success:function(res){
+                    let str = ''
+                    res.forEach(element => {
+                        str += `
+                        <li>
+                        <img src="${element.pc_img} " alt="">
+                        <h3>${element.goods_name}</h3>
+                        <p>${element.desc}</p>
+                        <span>${element.seckill_Price}元起</span>
+                        </li>
+                        `
+                    });
+                   $('.goods_right ul').html(str)
+                }
+            })
+        }
+    </script>
 
 
 
