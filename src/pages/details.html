@@ -67,8 +67,9 @@
             <div class="goods_show">
                 <div class="order_list">
                     <ul>
-                        <li>综合</li>
-                        <li>价格</li>
+                        <li class="zonghe active">综合</li>
+                        <li class="pirceup">价格↑</li>
+                        <li class="pircedown">价格↓</li>
                     </ul>
                 </div>
                 <div class="goods_list">
@@ -116,7 +117,7 @@
                     url:'../lib/nav_top.json',
                     dataType:'json',
                     success:function(res){
-                        console.log(res)
+                        // console.log(res)
                         let str = ''
                         res.forEach(item => {
                             str += `<li><a href="#">${item.name}</a></li>`
@@ -130,7 +131,7 @@
                         }).on({
                             mouseenter:function(){
                                 let index = $(this).index()
-                                console.log(index)
+                                // console.log(index)
                                 if(index < 7){
         
                                     let list = res[index].list
@@ -170,7 +171,7 @@
                 url:'../lib/goods_details.json',
                 dataType:'json',
                 success:function(res){
-                    console.log(res)
+                    // console.log(res)
                 }
             })
         </script>
@@ -199,7 +200,7 @@
                     nextContent: '下页',
                     callback: function (api) { // 当你切换页面的时候会触发
                         // api.getCurrent() 获取当前是第几页
-                        console.log(api.getCurrent())
+                        // console.log(api.getCurrent())
                         let num = api.getCurrent()
                         let goods = res.slice((num-1)*12,num*12)
 
@@ -212,19 +213,61 @@
                 let str = ''
                         list.forEach(element => {
                             str += `
-                                <li><img src="${element.discount_img}" alt="">
+                                <li mimg ="${element.discount_img}" goodsname="${element.goods_name}" goodsprice= "${element.goods_price}"><img src="${element.discount_img}" alt="">
                                 <h3>${element.goods_name}</h3>
                                 <p>${element.goods_price}元</p>
                                 </li>
                             `
                         });
-                        console.log(str)
+                        // console.log(str)
                         $('.goods_list ul').html(str)
-                    }   
+                }      
 
-                }   
+              $('.order_list ul').on('click','li',function(){
+                  $(this).addClass('active').siblings().removeClass('active')
+              })
+              $('.zonghe').click(function(){
+                  console.log('综合')
+                  res.sort(function(a,b){
+                    return a.goods_id - b.goods_id
+                  })
+                  goodsshow(res.slice(1,13))
+              })
+
+            //   console.log(res)
+              $('.pirceup').click(function(){
+                  console.log('价格升序')
+                  res.sort(function(a,b){
+                    return a.goods_price - b.goods_price
+                  })
+                  console.log(res)
+                  goodsshow(res.slice(1,13))
+              })
+              $('.pircedown').click(function(){
+                  console.log('价格降序')
+                  res.sort(function(a,b){
+                    return b.goods_price - a.goods_price
+                  })
+                  goodsshow(res.slice(1,13))
+              })
+
+
+            }   
+        })
+    }
+        </script>
+
+        <!-- 获取点击商品 -->
+        <script>
+            let good = {}
+            $('.goods_list').on('click','li',function(){
+                good.goods_img = $(this).attr('mimg')
+                good.goods_price = $(this).attr('goodsprice')
+                good.goods_name = $(this).attr('goodsname')
+                console.log(good)
+                localStorage.setItem('good',JSON.stringify(good))
+                window.location.href = './list.html'
             })
-        }
-    </script>
+        </script>
 </body>
 </html>

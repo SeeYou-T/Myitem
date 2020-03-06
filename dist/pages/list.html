@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>商品详情</title><link rel=stylesheet href=../sass/list.css><link rel=stylesheet href=../css/reset.css><link rel=icon href=https://www.mi.com/favicon.ico><link rel=stylesheet href=../lib/bootstrap/dist/css/bootstrap.min.css></head><body><div class=wrap_mnav><div class=mnav><ul class="l list_l"><li><a href=#>小米商城</a></li><li><a href=#>MIUI</a></li><li><a href=#>loT</a></li><li><a href=#>云服务</a></li><li><a href=#>金融</a></li><li><a href=#>有品</a></li><li><a href=#>小爱开放平台</a></li><li><a href=#>企业团购</a></li><li><a href=#>资质证照</a></li><li><a href=#>协议规则</a></li><li><a href=#>下载app</a></li><li><a href=# style=border-right:none>Select Location</a></li></ul><a href="" class="mcart r"><em class="glyphicon glyphicon-shopping-cart"></em>购物车<span></span></a><ul class="list_r r"><li><a href=# style=border-right:transparent>消息通知</a></li><li><a href=#>注册</a></li><li><a href=#>登录</a></li></ul></div></div><div class=warp_mine><div class=main_container><img src=../images/milogo.png alt="" class=logo><div class=goods_details></div></div><div class=buttom><img src=../images/QQ截图20200301155856.png alt=""></div></div><script src=../lib/jquery/dist/jquery.min.js></script><script>let str = ''
+        let list = JSON.parse(localStorage.getItem('good')) 
+        console.log(list)
+        str += `
+             <img src="${list.goods_img}" alt="">
+            <div class="goods_text">
+                <p>${list.goods_name}</p>
+                <h3>${list.goods_price}元</h3>
+                <div class="button">
+
+                    <button>加入购物车</button>
+                    <button>立即结算</button>
+                </div>
+            </div>
+        `
+        $('.goods_details').html(str)</script></body></html>

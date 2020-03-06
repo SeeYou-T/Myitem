@@ -1,0 +1,103 @@
+
+
+body{
+    font-size: 14px;
+}
+.warp_mine{
+    background-color: #f9f9f9;;
+}
+.main_container{
+    width: 854px;
+    height: 548px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.goods_details{
+    margin-top: 50px;
+
+    img{
+        width: 350px;
+        height: 300px;
+        float: left;
+        
+    }
+    .goods_text{
+        float: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 400px;
+        height: 300px;
+        p{
+            color: #424242;
+            font-size: 24px;
+        }
+
+        h3{
+            color: #ff6700;
+            font-size: 20px;
+        }
+        .button{
+            button{
+                border: 1px solid;
+                border-color: #ff6700;
+                background: #fff;
+                color: #ff6700;
+                width: 118px;
+                height: 28px;
+                font-size: 12px;
+                line-height: 28px;
+                margin: 0 10px;
+                transition: .5s;
+                cursor: pointer;
+                &:hover{
+                    background-color: #ff6700;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+.mnav,.site-header{margin: 0 auto;width: 1226px;}
+
+
+.wrap_mnav{
+    background: #333;
+}
+.mnav{
+    line-height: 40px;
+    height: 40px;
+    font-size: 12px;
+    background: #333;
+    margin: 0 auto;width: 1226px;
+}
+.mnav .list_l li{float: left;}
+.mnav .list_r li{float: right;}
+.mnav ul li::after{content: '|'; margin: 0 .3em;color: #424242;}
+.mnav ul li a{color: #b0b0b0;margin:0 3px}
+.mnav ul li:hover a{text-decoration: none;color: white;}
+.mnav .mcart{display: block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #b0b0b0;
+    background: #424242;
+}
+.mnav .mcart em{
+    font-size: 16px;
+    margin-right: 3px;
+}
+.mnav .mcart:hover{
+    background-color: white;
+    color: #ff6700;
+    text-decoration: none;
+}

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>小米商城</title><link rel=stylesheet href=../lib/bootstrap/dist/css/bootstrap.min.css><link rel=stylesheet href=../sass/details.css><link rel=stylesheet href=../css/reset.css><link rel=stylesheet href=../js/details.js><link rel=icon href=https://www.mi.com/favicon.ico><link rel=stylesheet href=../lib/pagination/pagination.css></head><body><div class=wrap_mnav><div class=mnav><ul class="l list_l"><li><a href=#>小米商城</a></li><li><a href=#>MIUI</a></li><li><a href=#>loT</a></li><li><a href=#>云服务</a></li><li><a href=#>金融</a></li><li><a href=#>有品</a></li><li><a href=#>小爱开放平台</a></li><li><a href=#>企业团购</a></li><li><a href=#>资质证照</a></li><li><a href=#>协议规则</a></li><li><a href=#>下载app</a></li><li><a href=# style=border-right:none>Select Location</a></li></ul><a href="" class="mcart r"><em class="glyphicon glyphicon-shopping-cart"></em>购物车<span></span></a><ul class="list_r r"><li><a href=# style=border-right:transparent>消息通知</a></li><li><a href=#>注册</a></li><li><a href=#>登录</a></li></ul></div></div><div class=site-header><a href="" class=header-logo><img src=../images/mi-home.png alt=""> <img src=../images/mi-logo.png alt=""></a><ul class=site-header-list></ul><div class="msearch r"><form action=#><a href="" class="r anniu glyphicon glyphicon-search"></a> <input type=text class="r kuang"><div class=search-hot-words><a href="">小米9 Pro 5G </a><a href="">Redmi Note 8</a></div></form></div></div><div class=list_container><ul></ul></div><div class=warp_goods><div class=goods_show><div class=order_list><ul><li>综合</li><li>价格</li></ul></div><div class=goods_list><ul></ul></div></div><div class="pagi m-style"></div></div><script src=../lib/jquery/dist/jquery.min.js></script><script>navdata()
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>小米商城</title><link rel=stylesheet href=../lib/bootstrap/dist/css/bootstrap.min.css><link rel=stylesheet href=../sass/details.css><link rel=stylesheet href=../css/reset.css><link rel=stylesheet href=../js/details.js><link rel=icon href=https://www.mi.com/favicon.ico><link rel=stylesheet href=../lib/pagination/pagination.css></head><body><div class=wrap_mnav><div class=mnav><ul class="l list_l"><li><a href=#>小米商城</a></li><li><a href=#>MIUI</a></li><li><a href=#>loT</a></li><li><a href=#>云服务</a></li><li><a href=#>金融</a></li><li><a href=#>有品</a></li><li><a href=#>小爱开放平台</a></li><li><a href=#>企业团购</a></li><li><a href=#>资质证照</a></li><li><a href=#>协议规则</a></li><li><a href=#>下载app</a></li><li><a href=# style=border-right:none>Select Location</a></li></ul><a href="" class="mcart r"><em class="glyphicon glyphicon-shopping-cart"></em>购物车<span></span></a><ul class="list_r r"><li><a href=# style=border-right:transparent>消息通知</a></li><li><a href=#>注册</a></li><li><a href=#>登录</a></li></ul></div></div><div class=site-header><a href="" class=header-logo><img src=../images/mi-home.png alt=""> <img src=../images/mi-logo.png alt=""></a><ul class=site-header-list></ul><div class="msearch r"><form action=#><a href="" class="r anniu glyphicon glyphicon-search"></a> <input type=text class="r kuang"><div class=search-hot-words><a href="">小米9 Pro 5G </a><a href="">Redmi Note 8</a></div></form></div></div><div class=list_container><ul></ul></div><div class=warp_goods><div class=goods_show><div class=order_list><ul><li class="zonghe active">综合</li><li class=pirceup>价格↑</li><li class=pircedown>价格↓</li></ul></div><div class=goods_list><ul></ul></div></div><div class="pagi m-style"></div></div><script src=../lib/jquery/dist/jquery.min.js></script><script>navdata()
            function navdata(){
         
           
@@ -6,7 +6,7 @@
                     url:'../lib/nav_top.json',
                     dataType:'json',
                     success:function(res){
-                        console.log(res)
+                        // console.log(res)
                         let str = ''
                         res.forEach(item => {
                             str += `<li><a href="#">${item.name}</a></li>`
@@ -20,7 +20,7 @@
                         }).on({
                             mouseenter:function(){
                                 let index = $(this).index()
-                                console.log(index)
+                                // console.log(index)
                                 if(index < 7){
         
                                     let list = res[index].list
@@ -47,7 +47,7 @@
                         )   
                     }
                 })
-            }</script><script>$.ajax({url:"../lib/goods_details.json",dataType:"json",success:function(o){console.log(o)}})</script><script src=../lib/pagination/pagination.js></script><script>goodssort()
+            }</script><script>$.ajax({url:"../lib/goods_details.json",dataType:"json",success:function(s){}})</script><script src=../lib/pagination/pagination.js></script><script>goodssort()
         function goodssort(){
             $.ajax({
                 url:'../lib/goods_details.json',
@@ -66,7 +66,7 @@
                     nextContent: '下页',
                     callback: function (api) { // 当你切换页面的时候会触发
                         // api.getCurrent() 获取当前是第几页
-                        console.log(api.getCurrent())
+                        // console.log(api.getCurrent())
                         let num = api.getCurrent()
                         let goods = res.slice((num-1)*12,num*12)
 
@@ -79,16 +79,53 @@
                 let str = ''
                         list.forEach(element => {
                             str += `
-                                <li><img src="${element.discount_img}" alt="">
+                                <li mimg ="${element.discount_img}" goodsname="${element.goods_name}" goodsprice= "${element.goods_price}"><img src="${element.discount_img}" alt="">
                                 <h3>${element.goods_name}</h3>
                                 <p>${element.goods_price}元</p>
                                 </li>
                             `
                         });
-                        console.log(str)
+                        // console.log(str)
                         $('.goods_list ul').html(str)
-                    }   
+                }      
 
-                }   
-            })
-        }</script></body></html>
+              $('.order_list ul').on('click','li',function(){
+                  $(this).addClass('active').siblings().removeClass('active')
+              })
+              $('.zonghe').click(function(){
+                  console.log('综合')
+                  res.sort(function(a,b){
+                    return a.goods_id - b.goods_id
+                  })
+                  goodsshow(res.slice(1,13))
+              })
+
+            //   console.log(res)
+              $('.pirceup').click(function(){
+                  console.log('价格升序')
+                  res.sort(function(a,b){
+                    return a.goods_price - b.goods_price
+                  })
+                  console.log(res)
+                  goodsshow(res.slice(1,13))
+              })
+              $('.pircedown').click(function(){
+                  console.log('价格降序')
+                  res.sort(function(a,b){
+                    return b.goods_price - a.goods_price
+                  })
+                  goodsshow(res.slice(1,13))
+              })
+
+
+            }   
+        })
+    }</script><script>let good = {}
+            $('.goods_list').on('click','li',function(){
+                good.goods_img = $(this).attr('mimg')
+                good.goods_price = $(this).attr('goodsprice')
+                good.goods_name = $(this).attr('goodsname')
+                console.log(good)
+                localStorage.setItem('good',JSON.stringify(good))
+                window.location.href = './list.html'
+            })</script></body></html>
