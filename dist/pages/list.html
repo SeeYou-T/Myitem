@@ -8,9 +8,35 @@
                 <h3>${list.goods_price}元</h3>
                 <div class="button">
 
-                    <button>加入购物车</button>
+                    <button class="addcart">加入购物车</button>
                     <button>立即结算</button>
                 </div>
             </div>
         `
-        $('.goods_details').html(str)</script></body></html>
+        $('.goods_details').html(str)
+
+
+        $('.addcart').click(function(){
+            let num = 1
+            let goodstimes = Date.now()
+            console.log(goodstimes)
+            console.log(num)
+            $.ajax({
+                url:'/cart',
+                method:'post',
+                data:{
+                    goodsname:list.goods_name,
+                    goodsimg:list.goods_img,
+                    goodsprice:list.goods_price,
+                    times : goodstimes,
+                    goodsnum :num
+                },
+                success:function(res){
+                    console.log(res)
+                },
+                error:function(xhr,err,info){
+                    console.log(err)
+                    console.log(info)
+                }   
+            })
+        })</script></body></html>

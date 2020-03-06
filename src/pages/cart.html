@@ -41,17 +41,20 @@
                 </ul>
             </div>
             <div class="goods_list">
-                <input type="checkbox">
-                <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1568604846.50875239.jpg?thumb=1&w=80&h=80" alt="">
-                <h4>小米路由器AC2100 黑色</h4>
-                <p>229</p>
-                <div class="goods_mun">
-                    <a href="">-</a>
-                    <p>1</p>
-                    <a href="">+</a>
-                </div>
-                <h6>229</h6>
-                <span class="glyphicon glyphicon-remove"></span>
+                <!-- <div class="goods_details">
+
+                    <input type="checkbox">
+                    <img src="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1568604846.50875239.jpg?thumb=1&w=80&h=80" alt="">
+                    <h4>小米路由器AC2100 黑色</h4>
+                    <p>229</p>
+                    <div class="goods_mun">
+                        <a href="">-</a>
+                        <p>1</p>
+                        <a href="">+</a>
+                    </div>
+                    <h6>229</h6>
+                    <span class="glyphicon glyphicon-remove del"></span>
+                </div> -->
             </div>
 
             <div class="goods_jiesuan">
@@ -71,6 +74,99 @@
         </div>
     </div>
 
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            url:'/cartgoods',
+            dataType:'json',
+            success:function(res){
+                // console.log(res)
+                let str = ''
+                res.forEach(element => {
+                    str += `
+                    <div class="goods_details">
+                    <input type="checkbox">
+                    <img src="${element.goodsimg}" alt="">
+                    <h4>${element.goodsname}</h4>
+                    <p>${element.goodsprice}</p>
+                    <div class="goods_mun">
+                        <a href="#" class= 'delnum' 
+                        times='${element.times} '>-</a>
+                        <p>${element.goodsnum}</p>
+                        <a href="#" class= 'addnum' 
+                        times='${element.times} '>+</a>
+                    </div>
+                    <h6>229</h6>
+                    <span class="glyphicon glyphicon-remove del"></span>
+                    </div>
+                    `
+                });
+                $('.goods_list').html(str)
+                //减少商品数量
+                $('.delnum').click(function(){
+                    let num = $('.goods_mun:first p').text()
+                    num = num - 1
+                    if($(num) == 1 ){
+                        console.log('不能再删了')
+                    }else{
+                        $.ajax({
+                            url: '/delnum',
+                            method: 'post',
+                            data:{
+                                goodsnum:num,
+                                times:$('.goods_mun:first').attr('class')
+                            },
+                            success:function(res){
+                                $.ajax({
+                                    url:'/cartgoods',
+                                    dataType:'json',
+                                    success:function(res){
+                                        // console.log(res)
 
+                                    }
+                                
+                                })
+                            }
+                        })
+
+                    }
+                })
+                let num = $('.goods_mun:first p').text()
+                //添加商品数量
+                $('.addnum').click(function(){
+                     num = num - 0 + 1
+                     console.log(num)
+                     console.log($(this).attr('times'))
+                        $.ajax({
+                            url: '/addnum',
+                            method: 'post',
+                            data:{
+                                goodsnum:num,
+                                times:$('.addnum').attr('times')
+                            },
+                            success:function(res){
+                                $.ajax({
+                                    url:'/cartgoods',
+                                    dataType:'json',
+                                    success:function(res){
+                                        console.log(res)
+                                        let goods = res.filter(function(item){
+                                            console.log(item)
+                                            return item.times == $('.addnum').attr('times')
+                                        })
+                                        // res.forEach(element => {
+                                        // });
+                                        console.log(goods)
+                                        console.log($('.addnum').attr('times'))
+                                        // $('.goods_mun:first p').text(goods)
+                                    }
+                                
+                                })
+                            }
+                        })
+                })
+            }
+        })
+    </script>
 </body>
 </html>
