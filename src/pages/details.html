@@ -213,7 +213,7 @@
                 let str = ''
                         list.forEach(element => {
                             str += `
-                                <li mimg ="${element.discount_img}" goodsname="${element.goods_name}" goodsprice= "${element.goods_price}"><img src="${element.discount_img}" alt="">
+                                <li mimg ="${element.discount_img}" goodsname="${element.goods_name}" goodsprice= "${element.goods_price}" goodsid='${element.goods_id}'><img src="${element.discount_img}" alt="">
                                 <h3>${element.goods_name}</h3>
                                 <p>${element.goods_price}元</p>
                                 </li>
@@ -264,6 +264,7 @@
                 good.goods_img = $(this).attr('mimg')
                 good.goods_price = $(this).attr('goodsprice')
                 good.goods_name = $(this).attr('goodsname')
+                good.goods_id = $(this).attr('goodsid')
                 console.log(good)
                 localStorage.setItem('good',JSON.stringify(good))
                 window.location.href = './list.html'

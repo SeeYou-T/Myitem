@@ -73,33 +73,63 @@
         $('.goods_details').html(str)
 
 
-        $('.addcart').click(function(){
-            let num = 1
-            let goodstimes = Date.now()
-            console.log(goodstimes)
-            console.log(num)
-            $.ajax({
-                url:'/cart',
-                method:'post',
-                data:{
-                    goodsname:list.goods_name,
-                    goodsimg:list.goods_img,
-                    goodsprice:list.goods_price,
-                    times : goodstimes,
-                    goodsnum :num
-                },
-                success:function(res){
-                    console.log(res)
-                },
-                error:function(xhr,err,info){
-                    console.log(err)
-                    console.log(info)
-                }   
-            })
-        })
+        // $('.addcart').click(function(){
+        //     let num = 1
+        //     let goodstimes = Date.now()
+        //     console.log(goodstimes)
+        //     console.log(num)
+        //     $.ajax({
+        //         url:'/cart',
+        //         method:'post',
+        //         data:{
+        //             goodsname:list.goods_name,
+        //             goodsimg:list.goods_img,
+        //             goodsprice:list.goods_price,
+        //             times : goodstimes,
+        //             goodsnum :num
+        //         },
+        //         success:function(res){
+        //             console.log(res)
+        //         },
+        //         error:function(xhr,err,info){
+        //             console.log(err)
+        //             console.log(info)
+        //         }   
+        //     })
+        // })
     </script>
 
+    <script>
 
+        $('.addcart').click(function(){
+            let cart = JSON.parse(localStorage.getItem('cart')) || []
+            let goods = cart.find(item => {
+                return item.goods_id === list.goods_id
+            })
+            console.log(goods)
+            if(goods){  
+                list.num++
+                list.xj = list.num * list.goods_price
+            }else{
+                list.num = 1
+                list.xj = list.num * list.goods_price
+                cart.push(list)
+
+            }
+
+
+            localStorage.setItem('cart', JSON.stringify(cart))
+            window.location.href = './cart.html'
+
+
+
+        
+
+        })
+
+
+
+    </script>
 
 
 </body>

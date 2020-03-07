@@ -101,6 +101,14 @@ const serverHandler = () => {
                  {
                    source: '/addnum',
                    target: 'http://127.0.0.1/addnum.php'
+                 },
+                 {
+                   source: '/login',
+                   target: 'http://127.0.0.1/login.php'
+                 },
+                 {
+                   source: '/register',
+                   target: 'http://127.0.0.1/register.php'
                  }
                ]
              })) // 开启服务器

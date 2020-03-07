@@ -30,6 +30,27 @@
             <img src="../images/QQ截图20200301155856.png" alt="">
         </div>
     </div>
+
+
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+
+
+    <script>
+        $('button').click(function(){
+            $.ajax({
+            url:'/register',
+            method:'post',
+            data:{username:$('.username').val(),userpass:$('.userpassword').val()},
+            success:function(res){
+                alert(res)
+            },
+            error:function(res){
+                alert(res)
+            }
+        })  
+
+        })
+    </script>
 </body>
 
 </html>

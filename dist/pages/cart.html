@@ -1,91 +1,152 @@
-<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>我的购物车-小米商城</title><link rel=stylesheet href=../sass/cart.css><link rel=stylesheet href=../css/reset.css><link rel=icon href=https://www.mi.com/favicon.ico><link rel=stylesheet href=../lib/bootstrap/dist/css/bootstrap.min.css></head><body><div class=wrap_header><div class=cart_header><div class=header_left><img src=../images/milogo.png alt=""><h3>我的购物车</h3><p>温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</p></div><div class=header_right><p>登录</p><p>注册</p></div></div></div><div class=wrap_cart><div class=goods_cart><div class=goods_header><ul><li><input type=checkbox>全选</li><li>商品名称</li><li>单价</li><li>数量</li><li>小计</li><li>操作</li></ul></div><div class=goods_list></div><div class=goods_jiesuan><div class=goods_num><a href="">继续购物</a><p>共 <span>1</span> 件商品，已选择 <span>1</span> 件</p></div><div class=price><p>共计<span>229元</span></p></div><div class=clearing><p>去结算</p></div></div></div></div><script src=../lib/jquery/dist/jquery.min.js></script><script>$.ajax({
-            url:'/cartgoods',
-            dataType:'json',
-            success:function(res){
-                // console.log(res)
-                let str = ''
-                res.forEach(element => {
-                    str += `
-                    <div class="goods_details">
-                    <input type="checkbox">
-                    <img src="${element.goodsimg}" alt="">
-                    <h4>${element.goodsname}</h4>
-                    <p>${element.goodsprice}</p>
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>我的购物车-小米商城</title><link rel=stylesheet href=../sass/cart.css><link rel=stylesheet href=../css/reset.css><link rel=icon href=https://www.mi.com/favicon.ico><link rel=stylesheet href=../lib/bootstrap/dist/css/bootstrap.min.css></head><body><div class=wrap_header><div class=cart_header><div class=header_left><img src=../images/milogo.png alt=""><h3>我的购物车</h3><p>温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</p></div><div class=header_right><p>登录</p><p>注册</p></div></div></div><div class=wrap_cart><div class=goods_cart><div class=goods_header><ul><li></li><li>商品名称</li><li>单价</li><li>数量</li><li>小计</li><li>操作</li></ul></div><div class=goods_list></div><div class=goods_jiesuan></div></div></div><script src=../lib/jquery/dist/jquery.min.js></script><script>let cart = JSON.parse(localStorage.getItem('cart'))
+        let str = ''
+        if(!cart){
+            str = `
+            <p>您的购物车是空的, 快去选购吧!</p>
+            `
+            $('.goods_list').html(str)
+        }else{
+            bindHtml()
+            bindEvent()
+        }
+
+
+        function bindHtml(){
+            let selectAll = cart.every(item => {
+                return item.isSelect === true
+            })
+            let str = `
+            <li><input class='selectAll' type="checkbox" ${ selectAll ? 'checked' : '' }>全选
+                    </li>
+                    <li>商品名称</li>
+                    <li>单价</li>
+                    <li>数量</li>
+                    <li>小计</li>
+                    <li>操作</li>
+            `   
+            $('.goods_header ul').html(str)
+
+
+            let str2 =''
+            cart.forEach(element => {
+                // console.log(element)
+                str2 += `
+                <li class="goods_details">
+                    <input type="checkbox" ${ element.isSelect ? 'checked' : '' } class="selectitem" data-id=${ element.goods_id }>
+                    <img src="${element.goods_img}" alt="">
+                    <h4>${element.goods_name}</h4>
+                    <p>${element.goods_price}元</p>
                     <div class="goods_mun">
                         <a href="#" class= 'delnum' 
-                        times='${element.times} '>-</a>
-                        <p>${element.goodsnum}</p>
+                        data-id='${element.goods_id} '>-</a>
+                        <p>${element.num}</p>
                         <a href="#" class= 'addnum' 
-                        times='${element.times} '>+</a>
+                        data-id='${element.goods_id} '>+</a>
                     </div>
-                    <h6>229</h6>
-                    <span class="glyphicon glyphicon-remove del"></span>
-                    </div>
-                    `
-                });
-                $('.goods_list').html(str)
-                //减少商品数量
-                $('.delnum').click(function(){
-                    let num = $('.goods_mun:first p').text()
-                    num = num - 1
-                    if($(num) == 1 ){
-                        console.log('不能再删了')
-                    }else{
-                        $.ajax({
-                            url: '/delnum',
-                            method: 'post',
-                            data:{
-                                goodsnum:num,
-                                times:$('.goods_mun:first').attr('class')
-                            },
-                            success:function(res){
-                                $.ajax({
-                                    url:'/cartgoods',
-                                    dataType:'json',
-                                    success:function(res){
-                                        // console.log(res)
+                    <h6>${ element.xj}元</h6>
+                    <span class="glyphicon glyphicon-remove del" data-id=${element.goods_id}></span>
+                    </li>
+                `
+            });
+         $('.goods_list').html(str2)
+            let selectArr =  cart.filter(item => item.isSelect)
+            let selectNumber = 0
+            let selectPrice = 0         
+            selectArr.forEach(item => {
+                selectNumber += item.num
+                selectPrice += item.xj
+            })        
+            let goodsnum = 0
+            cart.forEach(element => {
+                goodsnum += element.num
+            });
+            let str3 =`
+                <div class="goods_num">
+                    <a href=" ./details.html">继续购物</a>
+                    <p>共 <span class="zj">${ goodsnum }</span> 件商品，已选择 <span>${ selectNumber }</span> 件</p>
 
-                                    }
-                                
-                                })
-                            }
-                        })
+                </div>
+                <div class="price">
+                    <p>共计<span>${ selectPrice}元</span></p>
 
-                    }
+                </div>
+                <div class="clearing" ${ selectArr.length ? '' : 'style="background-color: gray;"'}>
+                    <p>去结算</p>
+                </div>
+            `
+            $('.goods_jiesuan').html(str3)
+        }
+
+
+        function bindEvent(){
+            //全选
+            $('.goods_header ul').on('change','.selectAll',function(){
+                cart.forEach(item => {
+                    item.isSelect = this.checked
+                    })
+            bindHtml()
+            localStorage.setItem('cart', JSON.stringify(cart))
+            })
+            
+            // 单选
+            $('.goods_list').on('change', '.selectitem', function () {
+                let id = $(this).data('id')
+                cart.forEach(item => {
+                if (item.goods_id == id) {
+                    item.isSelect = !item.isSelect
+                }
                 })
-                let num = $('.goods_mun:first p').text()
-                //添加商品数量
-                $('.addnum').click(function(){
-                     num = num - 0 + 1
-                     console.log(num)
-                     console.log($(this).attr('times'))
-                        $.ajax({
-                            url: '/addnum',
-                            method: 'post',
-                            data:{
-                                goodsnum:num,
-                                times:$('.addnum').attr('times')
-                            },
-                            success:function(res){
-                                $.ajax({
-                                    url:'/cartgoods',
-                                    dataType:'json',
-                                    success:function(res){
-                                        console.log(res)
-                                        let goods = res.filter(function(item){
-                                            console.log(item)
-                                            return item.times == $('.addnum').attr('times')
-                                        })
-                                        // res.forEach(element => {
-                                        // });
-                                        console.log(goods)
-                                        console.log($('.addnum').attr('times'))
-                                        // $('.goods_mun:first p').text(goods)
-                                    }
-                                
-                                })
-                            }
-                        })
+                bindHtml()
+                localStorage.setItem('cart', JSON.stringify(cart))
+            })
+            //减少数量
+            $('.goods_list').on('click', '.delnum', function () {
+                let id = $(this).data('id')
+                cart.forEach(item => {
+                if (item.goods_id == id) {
+                    item.num > 1 ? item.num-- : ''
+                    item.xj = item.goods_price * item.num
+                }
                 })
-            }
-        })</script></body></html>
+                bindHtml()
+                localStorage.setItem('cart', JSON.stringify(cart))
+            })
+            //增加
+            $('.goods_list').on('click', '.addnum', function () {
+                console.log('数量增加')
+                let id = $(this).data('id')
+                console.log(id)
+                cart.forEach(item => {
+                    console.log(item.goods_id)
+                    console.log(item.goods_id == id)
+                if (item.goods_id == id) {
+                    item.num++
+                    item.xj = item.goods_price * item.num
+                }
+                })
+                bindHtml()
+                localStorage.setItem('cart', JSON.stringify(cart))
+            })
+            //删除
+            $('.goods_list').on('click', '.del', function () {
+                let id = $(this).data('id')
+                cart = cart.filter(v => v.goods_id != id)
+                bindHtml()
+                localStorage.setItem('cart', JSON.stringify(cart))
+            })
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }</script></body></html>
